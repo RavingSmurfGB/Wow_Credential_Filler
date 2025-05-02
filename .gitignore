@@ -1,0 +1,20 @@
+# Ignore encrypted credential files
+encrypted_password.txt
+encrypted_username.txt
+
+# Optional: Ignore PowerShell history or logs
+*.pshistory
+*.log
+
+# Optional: Ignore all .txt files in the root (comment out if not needed)
+# *.txt
+
+# Windows system files
+Thumbs.db
+Desktop.ini
+
+# VS Code settings (if using)
+.vscode/
+
+# Node modules or JS-related (if ever added)
+node_modules/
