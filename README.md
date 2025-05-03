@@ -1,6 +1,15 @@
 
 🔐 WoW Credential Filler
 
+# this file needs updating 
+
+simply download install.ps1 and run install.ps1 from powershell
+it will do the rest..
+
+
+
+# old
+
 A Windows-based script combo to securely store and automatically input your World of Warcraft credentials upon game launch. Useful for Classic, Retail, or Hardcore/Fresh realms.
 ✨ Features
 

@@ -1,9 +1,3 @@
-# not quite finished
-# needs to generate a shortcut to C:\Program Files\Wow_Credential_Filler calling OpenWow.ps1 and passing through the relevant config file as a variable in the shortcut
-# config file is saved to appdata roaming e.g. C:\Users\Jo\AppData\Roaming\Wow_Credential_Filler
-
-
-
 # Function to Encrypt a password using DPAPI
 function Encrypt-Password {
     param (
@@ -160,3 +154,47 @@ if (Test-Path $configFilePath) {
 } else {
     Write-Host "Config file not found at: $configFilePath"
 }
+
+# Step 12: Ask the user what they want to name the shortcut
+Write-Host "`nStep 12: What would you like to name the shortcut? (e.g., hardcore, launch_cataclysm)"
+Write-Host "We recommend a name like 'hardcore', 'launch_cataclysm', or any specific name related to your WoW setup."
+
+$shortcutName = Read-Host "Enter shortcut name"
+if (-not $shortcutName) {
+    Write-Host "❌ Shortcut name cannot be empty. Exiting."
+    exit
+}
+
+# Define the shortcut target path and arguments
+$OpenWowPath = "C:\Program Files\Wow_Credential_Filler\OpenWow.ps1"
+$configFilePath = Join-Path -Path $ConfigDirectory -ChildPath "config.txt"
+
+# Validate if OpenWow.ps1 exists
+if (-not (Test-Path -Path $OpenWowPath)) {
+    Write-Host "❌ OpenWow.ps1 not found at $OpenWowPath. Please ensure the file exists before proceeding."
+    exit
+}
+
+# Define where to save the shortcut (e.g., on the user's desktop)
+$desktopPath = [System.Environment]::GetFolderPath('Desktop')
+$shortcutPath = Join-Path -Path $desktopPath -ChildPath "$shortcutName.lnk"
+
+# Create a new WScript.Shell COM object to create the shortcut
+$WshShell = New-Object -ComObject WScript.Shell
+$Shortcut = $WshShell.CreateShortcut($shortcutPath)
+
+# Set the target of the shortcut
+$Shortcut.TargetPath = "powershell.exe"
+$Shortcut.Arguments = "-ExecutionPolicy Bypass -File `"$OpenWowPath`" `"$configFilePath`""
+
+# Optionally, set the shortcut icon (using a default icon or a custom one)
+$Shortcut.IconLocation = "C:\Program Files (x86)\World of Warcraft\_retail_\wow.exe,0"  # Use WoW executable icon
+
+# Save the shortcut
+$Shortcut.Save()
+
+Write-Host "✅ Shortcut created successfully: $shortcutPath"
+Write-Host "You can now launch World of Warcraft using the shortcut '$shortcutName' on your Desktop."
+
+# Optional: Open the created shortcut to test if it works
+# Start-Process $shortcutPath
