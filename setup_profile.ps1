@@ -167,7 +167,7 @@ if (-not $shortcutName) {
 
 # Define the shortcut target path and arguments
 $OpenWowPath = "C:\Program Files\Wow_Credential_Filler\OpenWow.ps1"
-$configFilePath = Join-Path -Path $ConfigDirectory -ChildPath "config.txt"
+$configFilePath = Join-Path -Path $ConfigDirectory -ChildPath ""
 
 # Validate if OpenWow.ps1 exists
 if (-not (Test-Path -Path $OpenWowPath)) {
