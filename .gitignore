@@ -18,3 +18,8 @@ Desktop.ini
 
 # Node modules or JS-related (if ever added)
 node_modules/
+
+
+# ignore encryption key
+aes.key
+aes.iv
